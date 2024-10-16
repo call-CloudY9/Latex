@@ -1,0 +1,149 @@
+\documentclass[a4paper,12pt]{article}
+\include{src/dependencies}
+
+\definecolor{my gray}{rgb}{0.4,0.4,0.4}
+\definecolor{my green}{rgb}{0,0.8,0.6}
+\definecolor{my orange}{rgb}{1.0,0.4,0}
+\definecolor{code green}{rgb}{0,0.6,0}
+\definecolor{code gray}{rgb}{0.5,0.5,0.5}
+\definecolor{code purple}{rgb}{0.58,0,0.82}
+\definecolor{back colour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{custom}{
+  % backgroundcolor=\color{backcolour},
+  belowcaptionskip=1\baselineskip,
+  break lines=true,
+  frame=L,
+  xleftmargin=\parindent,
+  language=sh,
+  showstringspaces=false,
+  basic style=\ttfamily\bfseries,
+  columns=fixed,
+  more keywords={ifconfig,IP,route,dhclient,nmcli,ping},
+  keyword style=\bfseries\color{green!40!black},
+  comment style=\itshape\color{purple!40!black},
+  identifier style=\color{blue},
+  string style=\color{purple},
+  numbers=left,
+  numbersep=12pt,
+  number style=\ttfamily\scriptsize\color{my gray},
+  tab size=2,
+}
+\lstset{
+    language=Python,          
+    breaklines=true,         
+    commentstyle=\color{green},   
+    keywordstyle=\color{blue},    
+    stringstyle=\color{red},      
+    basicstyle=\ttfamily\small   
+}
+
+
+
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\begin{document}
+
+\input{src/title}
+
+\tableofcontents
+\newpage
+
+\section{Общее описание библиотеки geometric\_lib}
+Библиотека \texttt{geometric\_lib} решает задачи, связанные с геометрическими вычислениями, такими как:
+\\- рассчёт параметров геометрических фигур;
+\\- обработка и анализ данных, представленных в виде геометрических объектов.
+
+Данная библиотека предоставляет набор функций и классов, позволяющих выполнять вычисления с геометрическими фигурами, включая обработку координат, вычисления площадей и периметров, а также визуализацию результатов.
+\\
+\section{Описание файлов программ из репозитория}
+\subsection{Файл \texttt{square.py}}
+\begin{lstlisting}[language=Python]
+def area(a):
+    return a * a
+
+def perimeter(a):
+    return 4 * a
+\end{lstlisting}
+
+Данная прграмма вычисляет площадь и пермиетр квадрта по следующей формуле:
+\[
+S = a^2
+\]
+\[
+P = 4 a
+\]
+
+\subsection{Файл \texttt{triangle.py}}
+\begin{lstlisting}[language=Python]
+def area(a, b, c):
+    return ((a + b + c) / 2)
+    
+def perimeter(a, b, c):
+    return (a + b + c)
+\end{lstlisting}
+
+Данная программа вычисляет площадь и периметр треугольника по следующей формуле:
+
+\[
+S = \frac{1}{2} \cdot (a + b + c)
+\]
+\[
+P = (a + b + c)
+\]
+\subsection{Файл \texttt{calculate.py}}
+\begin{lstlisting}[language=Python]
+import circle
+import square
+figs = ['circle', 'square']
+funcs = ['perimeter', 'area']
+sizes = {}
+def calc(fig, func, size):
+	assert fig in figs
+	assert func in funcs
+	result = eval(f'{fig}.{func}(*{size})')
+	print(f'{func} of {fig} is {result}')
+if __name__ == "__main__":
+	func = ''
+	fig = ''
+	size = list()
+	while fig not in figs:
+		fig = input(f"Enter figure name, avaliable are {figs}:\n")
+	while func not in funcs:
+		func = input(f"Enter function name, avaliable are {funcs}:\n")
+	while len(size) != sizes.get(f"{func}-{fig}", 1):
+		size = list(map(int, input("Input figure sizes separated by space, 1 for circle and square\n").split(' ')))
+	calc(fig, func, size)
+\end{lstlisting}
+Данный код предоставляет простую оболочку для динамического вычисления значений, основываясь на введённых пользователем данных, и использует функцию eval для вызова методов из внешних модулей, что делает систему гибкой и расширяемой. Это может быть полезно для добавления новых фигур и методов в будущем, при условии соответствующей модификации модулей circle и square. Практическое использование eval следует осуществлять с осторожностью, так как это может привести к потенциальным уязвимостям, если введённые данные не контролируются должным образом.
+\newpage
+\subsection{Файл \texttt{circle.py}}
+\begin{lstlisting}[language=Python]
+import math
+
+def area(r):
+    return (math.pi * r * r)
+
+def perimeter(r):
+    return (2 * math.pi * r)
+\end{lstlisting}
+
+Данная программа вычисляет площадь и периметр круга по следующей формуле:
+
+\[
+S = \pi \cdot r^2
+\]
+\[
+P = 2 \cdot \pi \cdot r
+\]
+\\
+\\
+\\
+\section{Ссылки на проект}
+\subsection{Исходный код проекта можно просмотреть на GitHub \href{https://github.com/call-CloudY9/geometric_lib.git}{здесь}}
+\\
+\subsection{Исходный код overleaf можно найти 
+\href{https://github.com/call-CloudY9/Latex.git}{здесь}}
+
+\end{document}
